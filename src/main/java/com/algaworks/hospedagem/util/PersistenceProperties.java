@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class PersistenceProperties {
 
+    private static final String JDBC_DRIVER = "JDBC_DRIVER";
     private static final String JDBC_URL = "JDBC_URL";
 
     private static final String JDBC_USER = "JDBC_USER";
@@ -79,6 +80,9 @@ public class PersistenceProperties {
     private Properties systemEnv() {
         Properties props = new Properties();
         
+        if (System.getenv().containsKey(JDBC_DRIVER)) {
+            props.put("javax.persistence.jdbc.driver", System.getenv(JDBC_DRIVER));
+        }
         if (System.getenv().containsKey(JDBC_URL)) {
             props.put("javax.persistence.jdbc.url", System.getenv(JDBC_URL));
         }
@@ -135,6 +139,9 @@ public class PersistenceProperties {
     private Properties javaProperties() {
         Properties props = new Properties();
         
+        if (System.getProperties().containsKey(JDBC_DRIVER)) {
+            props.put("javax.persistence.jdbc.driver", System.getProperty(JDBC_DRIVER));
+        }
         if (System.getProperties().containsKey(JDBC_URL)) {
             props.put("javax.persistence.jdbc.url", System.getProperty(JDBC_URL));
         }
